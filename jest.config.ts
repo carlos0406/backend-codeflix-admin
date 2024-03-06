@@ -203,7 +203,7 @@ const config: Config = {
     },
   },
   coverageReporters: ["json", "lcov", "text"],
-  setupFilesAfterEnv: ['./shared/infra/testing/expect-helpers.ts'],
+  setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
 };
 
 export default config;
