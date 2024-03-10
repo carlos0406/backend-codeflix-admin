@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type {Config} from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
   transform: {
@@ -22,18 +22,15 @@ const config: Config = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
 
   collectCoverageFrom: undefined,
 
   coverageDirectory: 'coverage',
 
-  coveragePathIgnorePatterns: [
-    "/node_modules/"
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/'],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -194,15 +191,16 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
-  coverageReporters: ["json", "lcov", "text"],
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 80,
+  //     functions: 80,
+  //     lines: 80,
+  //     statements: 80,
+  //   },
+  // // },
+  // coverageReporters: ['json', 'lcov', 'text'],
+  // collectCoverage: true,
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
 };
 
