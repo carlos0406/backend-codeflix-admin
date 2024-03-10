@@ -1,0 +1,14 @@
+### create category
+
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "name": "Category 1",
+  "description":  "Category 1 description"
+}
+
+###
+
+### list categories withou filter
+GET http://localhost:3000/categories
