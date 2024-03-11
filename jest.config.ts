@@ -26,9 +26,6 @@ const config: Config = {
   collectCoverageFrom: undefined,
 
   coverageDirectory: 'coverage',
-
-  coveragePathIgnorePatterns: ['/node_modules/'],
-
   // Indicates which provider should be used to instrument code for coverage
   coverageProvider: 'v8',
 
@@ -191,15 +188,26 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 80,
-  //     functions: 80,
-  //     lines: 80,
-  //     statements: 80,
-  //   },
-  // // },
-  // coverageReporters: ['json', 'lcov', 'text'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '.interface.ts',
+    '-interface.ts',
+    'shared/testing',
+    'shared-module/testing',
+    'validator-rules.ts',
+    '-fixture.ts',
+    '.input.ts',
+    '.d.ts',
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+  coverageReporters: ['json', 'lcov', 'text'],
   // collectCoverage: true,
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
 };

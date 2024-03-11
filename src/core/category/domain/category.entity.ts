@@ -4,6 +4,8 @@ import { Uuid } from "../../shared/domain/value-objects/uuid.vo";
 import { CategoryFakeBuilder } from "./category-fake.builder";
 import { CategoryValidatorFactory } from "./category.validator";
 
+export class CategoryId extends Uuid {}
+
 export type CategoryConstructorProps = {
   category_id?: Uuid;
   name: string;
@@ -19,7 +21,7 @@ export type CategoryCreateCommand = {
 };
 
 export class Category extends Entity {
-  category_id: Uuid;
+  category_id: CategoryId;
   name: string;
   description: string | null;
   is_active: boolean;
@@ -27,7 +29,7 @@ export class Category extends Entity {
 
   constructor(props: CategoryConstructorProps) {
     super();
-    this.category_id = props.category_id ?? new Uuid();
+    this.category_id = props.category_id ?? new CategoryId();
     this.name = props.name;
     this.description = props.description ?? null;
     this.is_active = props.is_active ?? true;
@@ -49,7 +51,7 @@ export class Category extends Entity {
     this.validate(['name']);
   }
 
-  changeDescription(description: string): void {
+  changeDescription(description: string | null): void {
     this.description = description;
   }
 

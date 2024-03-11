@@ -5,7 +5,6 @@ export class NotFoundError extends Error {
     id: any[] | any,
     entityClass: new (...args: any[]) => Entity,
   ) {
-    console.log(id,'id')
     const idsMessage = Array.isArray(id) ? id.join(', ') : id;
     super(`${entityClass.name} Not Found using ID ${idsMessage}`);
     this.name = 'NotFoundError';

@@ -1,9 +1,13 @@
-import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { NotFoundError } from "../../../../shared/domain/errors/not-found-erros";
-import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
-import { Category } from "../../../domain/category.entity";
-import { ICategoryRepository } from "../../../domain/category.repository";
-import { CategoryOutput, CategoryOutputMapper } from "../common/category-output";
+import { Category, CategoryId } from '@core/category/domain/category.entity';
+import { IUseCase } from '../../../../shared/application/use-case.interface';
+import { EntityValidationError } from '../../../../shared/domain/validators/validation.error';
+import { ICategoryRepository } from '../../../domain/category.repository';
+import {
+  CategoryOutput,
+  CategoryOutputMapper,
+} from '../common/category-output';
+import { UpdateCategoryInput } from './update-category.input';
+import { NotFoundError } from '@core/shared/domain/errors/not-found-erros';
 
 export class UpdateCategoryUseCase
   implements IUseCase<UpdateCategoryInput, UpdateCategoryOutput>
@@ -11,8 +15,8 @@ export class UpdateCategoryUseCase
   constructor(private categoryRepo: ICategoryRepository) {}
 
   async execute(input: UpdateCategoryInput): Promise<UpdateCategoryOutput> {
-    const uuid = new Uuid(input.id);
-    const category = await this.categoryRepo.findById(uuid);
+    const categoryId = new CategoryId(input.id);
+    const category = await this.categoryRepo.findById(categoryId);
 
     if (!category) {
       throw new NotFoundError(input.id, Category);
@@ -20,7 +24,7 @@ export class UpdateCategoryUseCase
 
     input.name && category.changeName(input.name);
 
-    if ("description" in input) {
+    if (input.description !== undefined) {
       category.changeDescription(input.description);
     }
 
@@ -32,17 +36,14 @@ export class UpdateCategoryUseCase
       category.deactivate();
     }
 
+    if (category.notification.hasErrors()) {
+      throw new EntityValidationError(category.notification.toJSON());
+    }
+
     await this.categoryRepo.update(category);
 
     return CategoryOutputMapper.toOutput(category);
   }
 }
-
-export type UpdateCategoryInput = {
-  id: string;
-  name?: string;
-  description?: string;
-  is_active?: boolean;
-};
 
 export type UpdateCategoryOutput = CategoryOutput;
