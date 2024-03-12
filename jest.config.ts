@@ -194,6 +194,7 @@ const config: Config = {
     '-interface.ts',
     'shared/testing',
     'shared-module/testing',
+    '.dto.ts',
     'validator-rules.ts',
     '-fixture.ts',
     '.input.ts',
