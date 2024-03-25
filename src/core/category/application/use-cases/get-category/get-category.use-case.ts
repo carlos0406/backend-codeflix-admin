@@ -1,10 +1,11 @@
-import { IUseCase } from "../../../../shared/application/use-case.interface";
-import { NotFoundError } from "../../../../shared/domain/errors/not-found-erros";
-import { Uuid } from "../../../../shared/domain/value-objects/uuid.vo";
-import { Category, CategoryId } from "../../../domain/category.entity";
-import { ICategoryRepository } from "../../../domain/category.repository";
-import { CategoryOutputMapper, CategoryOutput } from "../common/category-output";
-
+import { IUseCase } from '../../../../shared/application/use-case.interface';
+import { NotFoundError } from '../../../../shared/domain/errors/not-found-erros';
+import { Category, CategoryId } from '../../../domain/category.entity';
+import { ICategoryRepository } from '../../../domain/category.repository';
+import {
+  CategoryOutputMapper,
+  CategoryOutput,
+} from '../common/category-output';
 
 export class GetCategoryUseCase
   implements IUseCase<GetCategoryInput, GetCategoryOutput>

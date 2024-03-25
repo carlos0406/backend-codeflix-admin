@@ -1,6 +1,5 @@
 import { Op, literal } from 'sequelize';
-import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo';
-import { Category } from '../../../domain/category.entity';
+import { Category, CategoryId } from '../../../domain/category.entity';
 import {
   CategorySearchParams,
   CategorySearchResult,
@@ -44,7 +43,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     });
   }
 
-  async delete(category_id: Uuid): Promise<void> {
+  async delete(category_id: CategoryId): Promise<void> {
     const id = category_id.id;
     const model = await this._get(id);
     if (!model) {
@@ -53,7 +52,7 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     await this.categoryModel.destroy({ where: { category_id: id } });
   }
 
-  async findById(entity_id: Uuid): Promise<Category | null> {
+  async findById(entity_id: CategoryId): Promise<Category | null> {
     const model = await this._get(entity_id.id);
 
     return model ? CategoryModelMapper.toEntity(model) : null;
@@ -105,6 +104,4 @@ export class CategorySequelizeRepository implements ICategoryRepository {
   getEntity(): new (...args: any[]) => Category {
     return Category;
   }
-
-  
 }

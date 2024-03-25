@@ -8,7 +8,6 @@ import { CategorySequelizeRepository } from '../../core/category/infra/db/sequel
 import { CategoryModel } from '../../core/category/infra/db/sequelize/category.model';
 import { ICategoryRepository } from '../../core/category/domain/category.repository';
 import { CategoryInMemoryRepository } from '@core/category/infra/db/category-in-memory.repository';
-// import { CategoriesIdExistsInDatabaseValidator } from '../../core/category/application/validations/categories-ids-exists-in-database.validator';
 
 export const REPOSITORIES = {
   CATEGORY_REPOSITORY: {
@@ -78,5 +77,5 @@ export const USE_CASES = {
 
 export const CATEGORY_PROVIDERS = {
   REPOSITORIES,
-  USE_CASES
+  USE_CASES,
 };

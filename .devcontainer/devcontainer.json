@@ -56,7 +56,8 @@
 			"extensions": [
 				"Orta.vscode-jest",
 				"firsttris.vscode-jest-runner",
-				"humao.rest-client"
+				"humao.rest-client",
+				"dbaeumer.vscode-eslint"
 			]
 		}
 	}
