@@ -1,8 +1,8 @@
 import { CastMemberType } from '@core/cast-member/domain/cast-member-type-enum';
 import {
-  IsBoolean,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   validateSync,
 } from 'class-validator';
@@ -19,11 +19,10 @@ export class UpdateCastMemberInput {
   id: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
-  @IsBoolean()
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(CastMemberType)
   type: CastMemberType;
 

@@ -16,17 +16,17 @@ import {
 } from '../common/cast-member-output';
 
 export class ListCastMembersUseCase
-  implements IUseCase<ListCastmembersInput, ListCategoriesOutput>
+  implements IUseCase<ListCastmembersInput, ListCastMemberOutput>
 {
   constructor(private castMemberRepo: ICastMemberRepository) {}
 
-  async execute(input: ListCastmembersInput): Promise<ListCategoriesOutput> {
+  async execute(input: ListCastmembersInput): Promise<ListCastMemberOutput> {
     const params = new CastMemberSearchParams(input);
     const searchResult = await this.castMemberRepo.search(params);
     return this.toOutput(searchResult);
   }
 
-  private toOutput(searchResult: CastMemberSearchResult): ListCategoriesOutput {
+  private toOutput(searchResult: CastMemberSearchResult): ListCastMemberOutput {
     const { items: _items } = searchResult;
     const items = _items.map((i) => {
       return CastMemberOutputMapper.toOutput(i);
@@ -43,4 +43,4 @@ export type ListCastmembersInput = {
   filter?: CastMemberFilter | null;
 };
 
-export type ListCategoriesOutput = PaginationOutput<CastMemberOutput>;
+export type ListCastMemberOutput = PaginationOutput<CastMemberOutput>;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Controller,
   Get,
@@ -21,7 +20,10 @@ import { GetCategoryUseCase } from '../../core/category/application/use-cases/ge
 import { ListCategoriesUseCase } from '../../core/category/application/use-cases/list-categories/list-categories.use-case';
 import { SearchCategoriesDto } from './dto/search-category.dto';
 import { CategoryOutput } from '@core/category/application/use-cases/common/category-output';
-import { CategoryCollectionPresenter, CategoryPresenter } from './categories.presenter';
+import {
+  CategoryCollectionPresenter,
+  CategoryPresenter,
+} from './categories.presenter';
 
 @Controller('categories')
 export class CategoriesController {

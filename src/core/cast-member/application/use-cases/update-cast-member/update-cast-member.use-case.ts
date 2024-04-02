@@ -1,5 +1,5 @@
 import { IUseCase } from '@core/shared/application/use-case.interface';
-import { UpdateCastMemberInput } from './update-.cast-member.input';
+import { UpdateCastMemberInput } from './update-cast-member.input';
 import {
   CastMemberOutput,
   CastMemberOutputMapper,
