@@ -22,6 +22,14 @@ export class CastMemberSequelizeRepository implements ICastMemberRepository {
     },
   };
   constructor(private castMemberModel: typeof CastMemberModel) {}
+  // findByIds(ids: CastMemberId[]): Promise<CastMember[]> {
+  //   throw new Error('Method not implemented.');
+  // }
+  // existsById(
+  //   ids: CastMemberId[],
+  // ): Promise<{ exists: CastMemberId[]; not_exists: CastMemberId[] }> {
+  //   throw new Error('Method not implemented.');
+  // }
 
   async insert(entity: CastMember): Promise<void> {
     const modelProps = CastMemberModelMapper.toModel(entity);

@@ -1,3 +1,4 @@
+import { InvalidArgumentError } from '@core/shared/domain/errors/invalid-argument.error';
 import { Entity } from '../../../domain/entity';
 import { NotFoundError } from '../../../domain/errors/not-found-erros';
 import {
@@ -16,6 +17,41 @@ export abstract class InMemoryRepository<
   EntityId extends ValueObject,
 > implements IRepository<E, EntityId>
 {
+  async findByIds(ids: EntityId[]): Promise<E[]> {
+    //avoid to return repeated items
+    return this.items.filter((entity) => {
+      return ids.some((id) => entity.entity_id.equals(id));
+    });
+  }
+
+  async existsById(
+    ids: EntityId[],
+  ): Promise<{ exists: EntityId[]; not_exists: EntityId[] }> {
+    if (!ids.length) {
+      throw new InvalidArgumentError(
+        'ids must be an array with at least one element',
+      );
+    }
+
+    if (this.items.length === 0) {
+      return {
+        exists: [],
+        not_exists: ids,
+      };
+    }
+
+    const existsId = new Set<EntityId>();
+    const notExistsId = new Set<EntityId>();
+    ids.forEach((id) => {
+      const item = this.items.find((entity) => entity.entity_id.equals(id));
+      item ? existsId.add(id) : notExistsId.add(id);
+    });
+    return {
+      exists: Array.from(existsId.values()),
+      not_exists: Array.from(notExistsId.values()),
+    };
+  }
+
   items: E[] = [];
 
   async insert(entity: E): Promise<void> {
@@ -64,7 +100,14 @@ export abstract class InMemorySearchableRepository<
   extends InMemoryRepository<E, EntityId>
   implements ISearchableRepository<E, EntityId, Filter>
 {
-  sortableFields: string[] = [];
+  sortableFields: string[];
+  async findByIds(ids: EntityId[]): Promise<E[]> {
+    //avoid to return repeated items
+    return this.items.filter((entity) => {
+      return ids.some((id) => entity.entity_id.equals(id));
+    });
+  }
+
   async search(props: SearchParams<Filter>): Promise<SearchResult<E>> {
     const itemsFiltered = await this.applyFilter(this.items, props.filter);
     const itemsSorted = this.applySort(

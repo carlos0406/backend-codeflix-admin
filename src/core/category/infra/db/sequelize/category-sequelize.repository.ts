@@ -1,5 +1,5 @@
 import { Op, literal } from 'sequelize';
-import { Category, CategoryId } from '../../../domain/category.entity';
+import { Category, CategoryId } from '../../../domain/category.aggregate';
 import {
   CategorySearchParams,
   CategorySearchResult,
@@ -9,6 +9,7 @@ import { CategoryModel } from './category.model';
 import { CategoryModelMapper } from './category-model-mapper';
 import { NotFoundError } from '../../../../shared/domain/errors/not-found-erros';
 import { SortDirection } from '@core/shared/domain/repository/search-param';
+import { InvalidArgumentError } from '@core/shared/domain/errors/invalid-argument.error';
 
 export class CategorySequelizeRepository implements ICategoryRepository {
   sortableFields: string[] = ['name', 'created_at'];
@@ -18,6 +19,34 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     },
   };
   constructor(private categoryModel: typeof CategoryModel) {}
+  async existsById(
+    ids: CategoryId[],
+  ): Promise<{ exists: CategoryId[]; not_exists: CategoryId[] }> {
+    if (!ids.length) {
+      throw new InvalidArgumentError(
+        'ids must be an array with at least one element',
+      );
+    }
+
+    const existsCategoryModels = await this.categoryModel.findAll({
+      attributes: ['category_id'],
+      where: {
+        category_id: {
+          [Op.in]: ids.map((id) => id.id),
+        },
+      },
+    });
+    const existsCategoryIds = existsCategoryModels.map(
+      (m) => new CategoryId(m.category_id),
+    );
+    const notExistsCategoryIds = ids.filter(
+      (id) => !existsCategoryIds.some((e) => e.equals(id)),
+    );
+    return {
+      exists: existsCategoryIds,
+      not_exists: notExistsCategoryIds,
+    };
+  }
 
   async insert(entity: Category): Promise<void> {
     const modelProps = CategoryModelMapper.toModel(entity);
@@ -67,6 +96,17 @@ export class CategorySequelizeRepository implements ICategoryRepository {
     return models.map((model) => {
       return CategoryModelMapper.toEntity(model);
     });
+  }
+
+  async findByIds(ids: CategoryId[]): Promise<Category[]> {
+    const models = await this.categoryModel.findAll({
+      where: {
+        category_id: {
+          [Op.in]: ids.map((id) => id.id),
+        },
+      },
+    });
+    return models.map((m) => CategoryModelMapper.toEntity(m));
   }
 
   async search(props: CategorySearchParams): Promise<CategorySearchResult> {

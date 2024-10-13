@@ -209,7 +209,7 @@ const config: Config = {
     },
   },
   coverageReporters: ['json', 'lcov', 'text'],
-  collectCoverage: true,
+  collectCoverage: false,
   setupFilesAfterEnv: ['./core/shared/infra/testing/expect-helpers.ts'],
 };
 

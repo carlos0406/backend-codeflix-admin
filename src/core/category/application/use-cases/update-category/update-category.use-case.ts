@@ -1,4 +1,4 @@
-import { Category, CategoryId } from '@core/category/domain/category.entity';
+import { Category, CategoryId } from '@core/category/domain/category.aggregate';
 import { IUseCase } from '../../../../shared/application/use-case.interface';
 import { EntityValidationError } from '../../../../shared/domain/validators/validation.error';
 import { ICategoryRepository } from '../../../domain/category.repository';

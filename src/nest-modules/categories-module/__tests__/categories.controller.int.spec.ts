@@ -14,7 +14,7 @@ import { CreateCategoryFixture, ListCategoriesFixture, UpdateCategoryFixture } f
 import { CategoryCollectionPresenter, CategoryPresenter } from "../categories.presenter";
 import { CategoryOutputMapper } from "@core/category/application/use-cases/common/category-output";
 import { Uuid } from "@core/shared/domain/value-objects/uuid.vo";
-import { Category, CategoryId } from "@core/category/domain/category.entity";
+import { Category, CategoryId } from "@core/category/domain/category.aggregate";
 
 describe('CategoriesController integration tests', ()=>{
   let controller: CategoriesController;
