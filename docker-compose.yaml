@@ -8,3 +8,31 @@ services:
       - "3000:3000"
     volumes:
       - .:/home/node/app
+    labels:
+      filebeat_collector: true
+
+  db:
+    image: mysql:8.0.30-debian
+    environment:
+      - MYSQL_DATABASE=micro_videos
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - codeflix_db:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "3306:3306"
+
+  rabbitmq:
+    build: ./.docker/rabbitmq
+    ports:
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    volumes:
+      - codeflix_rabbitmq:/var/lib/rabbitmq
+
+volumes:
+  codeflix_db:
+  codeflix_rabbitmq:
