@@ -32,6 +32,7 @@ describe('CategoriesController (e2e)', () => {
         return request(appHelper.app.getHttpServer())
           .delete(`/categories/${id}`)
           .expect(expected.statusCode)
+          .authenticate(appHelper.app)
           .expect(expected);
       });
     });
@@ -45,6 +46,7 @@ describe('CategoriesController (e2e)', () => {
 
       await request(appHelper.app.getHttpServer())
         .delete(`/categories/${category.category_id.id}`)
+        .authenticate(appHelper.app)
         .expect(204);
 
       await expect(

@@ -45,6 +45,7 @@ describe('CategoriesController (e2e)', () => {
             return request(nestApp.app.getHttpServer())
               .patch(`/categories/${id}`)
               .send(send_data)
+              .authenticate(nestApp.app)
               .expect(expected.statusCode)
               .expect(expected);
           } catch (error) {
@@ -66,6 +67,7 @@ describe('CategoriesController (e2e)', () => {
         return request(app.app.getHttpServer())
           .patch(`/categories/${uuid}`)
           .send(value.send_data)
+          .authenticate(app.app)
           .expect(422)
           .expect(value.expected);
       });
@@ -92,6 +94,7 @@ describe('CategoriesController (e2e)', () => {
         return request(app.app.getHttpServer())
           .patch(`/categories/${category.category_id.id}`)
           .send(value.send_data)
+          .authenticate(app.app)
           .expect(422)
           .expect(value.expected);
       });
@@ -116,6 +119,7 @@ describe('CategoriesController (e2e)', () => {
           const res = await request(appHelper.app.getHttpServer())
             .patch(`/categories/${categoryCreated.category_id.id}`)
             .send(send_data)
+            .authenticate(appHelper.app)
             .expect(200);
           const keyInResponse = UpdateCategoryFixture.keysInResponse;
           expect(Object.keys(res.body)).toStrictEqual(['data']);

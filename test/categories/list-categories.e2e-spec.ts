@@ -29,6 +29,7 @@ describe('CategoriesController (e2e)', () => {
           return request(nestApp.app.getHttpServer())
             .get(`/categories/?${queryParams}`)
             .expect(200)
+            .authenticate(nestApp.app)
             .expect({
               data: expected.entities.map((e) =>
                 instanceToPlain(
@@ -62,6 +63,7 @@ describe('CategoriesController (e2e)', () => {
           return request(nestApp.app.getHttpServer())
             .get(`/categories/?${queryParams}`)
             .expect(200)
+            .authenticate(nestApp.app)
             .expect({
               data: expected.entities.map((e) =>
                 instanceToPlain(
