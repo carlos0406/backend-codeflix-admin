@@ -12,8 +12,6 @@ export class GenresIdExistsInDatabaseValidator {
     const genresId = genres_id.map((v) => new GenreId(v));
 
     const existsResult = await this.genreRepo.existsById(genresId);
-    console.log('existsResult');
-    console.log(existsResult);
     return existsResult.not_exists.length > 0
       ? Either.fail(
           existsResult.not_exists.map((c) => new NotFoundError(c.id, Genre)),

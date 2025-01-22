@@ -40,7 +40,6 @@ describe('cast members e2e', () => {
         });
       expect(response.status).toBe(422);
 
-      console.log(response.body);
       expect(response.body.message).toEqual([
         'type must be one of the following values: 1, 2',
       ]);

@@ -26,8 +26,6 @@ describe('ListCategoriesUseCase Integration Tests', () => {
     await repository.bulkInsert(items);
 
     const output = await useCase.execute({});
-    console.log(output.items);
-    console.log(output);
     expect(output.total).toBe(2);
     expect(output.current_page).toBe(1);
     expect(output.per_page).toBe(15);

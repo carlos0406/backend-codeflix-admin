@@ -52,9 +52,3 @@ export class VideosConsumers {
     await useCase.execute(input);
   }
 }
-
-// class FakeError extends Error {
-//   constructor() {
-//     super('Fake error');
-//   }
-// }

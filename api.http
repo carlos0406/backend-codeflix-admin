@@ -1,9 +1,11 @@
 ## valid uuid = 8f4b7b9c-3f7a-4b6c-8b0c-1c9c5b8b9b6a
+@jwtToken = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYWRtaW4tY2F0YWxvZyJdfSwiaWF0IjoxNzMyNDI3MDk1LCJleHAiOjE3Mzk2MjcwOTV9.AnGtX2c4vmAAz4OP4ZOSbe0hDWhORHAoCRbQNFnl2sSE9tDoS6nqoja1HQ8lz5sHbUgmBASWv96Uo0MfTIBj4_wn6CdDRIi8fhD8BS8VsfvW6tHJ2TI4MBh2Zuw_ro68o-2dc9T05WYQ7RGImJc4YHZ-qPL6fYojO7mvD6qoa-A4JqXycyNlZKpB8Fug_s6wJ44cL2DaxoApYDqibOK6d6Tq-X8GHuSA8BMGXa-8wKQ7o-iP_hH-qwfNDE6nbPayk1PKsrgxOY_1dJE8Bn9fx7pb3Cy-zjhxB3PdVtascDvx0lWKxAeQwy4EzHJAYiVWev3ovEwLrm7H_XxjfgOSOg
 
-### 
+###
 # @name createCategory
 POST http://localhost:3000/categories
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
     "name": "Category 1",
@@ -16,15 +18,17 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/categories
+Authorization: Bearer {{jwtToken}}
 
 ###
-GET http://localhost:3000/categories/a724560e-acfa-4bce-8c13-d5ecc2d04712
-
+GET http://localhost:3000/categories/95dbef35-a822-4957-9acf-64a711ed3e09
+Authorization: Bearer {{jwtToken}}
 
 ### 
 # @name createGenre
 POST http://localhost:3000/genres
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
     "name": "Genre 1",
@@ -42,6 +46,7 @@ Content-Type: application/json
 # @name createCastMember
 POST http://localhost:3000/cast-members
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
     "name": "Cast Member 1",
@@ -143,10 +148,7 @@ username=admin@user.com
 &client_id=codeflix-admin-frontend
 
 
-###
 
-@jwtToken = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYWRtaW4tY2F0YWxvZyJdfSwiaWF0IjoxNzMxMDMyNjA3LCJleHAiOjE3MzExMTkwMDd9.kNYqwoSOJPC5yr0cF_Z3IhODELyGM4ghA1PCtSu8uQ6nb8GBi_dMuTdjfW2xStY1U4gFJ7q_UtMbuFxbrxV-G9ZENl2NVKcYRDleDEoLaLgm2ohrn_qpf2ZD5ajlbiIfAOFpsm7c8ERLHfXiZJgQVjSyFSp9o86iOBu3nKrUil-daYTEp2hn9XSHuWSSJHgWHrME-44-Ptj2MYQdktLHE3sJggCLmtJfvJO-H97uYepij0OL1cY87ipiQoJ7cw1k7tAjjnNUiAO8-XHFMKYYkA1RsVOttILVnDAu37hU7TWxvP-LG1aFwxx0yQ5O5yeOT1N1yBAnIjrt2NUFSIZ3Ew
-###
 GET http://localhost:3000/auth
 Content-Type: application/json
 Authorization: Bearer {{jwtToken}}

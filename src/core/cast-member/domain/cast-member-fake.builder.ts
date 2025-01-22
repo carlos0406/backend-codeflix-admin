@@ -44,6 +44,17 @@ export class CastMemberFakeBuilder<TBuild = any> {
     return new CastMemberFakeBuilder<CastMember[]>(countObjs);
   }
 
+  withNames(names: string[]) {
+    this._name = (index: number) => names[index] || this.chance.word();
+    return this;
+  }
+
+  withTypes(types: number[]) {
+    this._type = (index: number) =>
+      (types[index] as CastMemberType) || CastMemberType.ACTOR;
+    return this;
+  }
+
   private chance: Chance.Chance;
 
   private constructor(countObjs: number = 1) {

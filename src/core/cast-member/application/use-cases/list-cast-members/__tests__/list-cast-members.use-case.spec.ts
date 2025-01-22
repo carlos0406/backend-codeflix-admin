@@ -62,7 +62,6 @@ describe('ListCastMembersUseCase Unit Tests', () => {
     ];
     repository.items = items;
     const output = await useCase.execute({});
-    console.log(output);
     expect(output).toStrictEqual({
       items: [...items].reverse().map(CastMemberOutputMapper.toOutput),
       total: 2,

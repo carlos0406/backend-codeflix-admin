@@ -48,7 +48,6 @@ describe('CastMemberSequelizeRepository Integration Test', () => {
 
     await repository.insert(castMember);
     const result = await repository.findAll();
-    console.log(result);
     expect(result).toHaveLength(1);
     expect(JSON.stringify(result)).toBe(JSON.stringify([castMember]));
   });
@@ -274,7 +273,6 @@ describe('CastMemberSequelizeRepository Integration Test', () => {
         per_page: 4,
       });
       const searchOutput = await repository.search(searchParams);
-      console.log(searchOutput);
       expect(searchOutput).toBeInstanceOf(CastMemberSearchResult);
       expect(searchOutput.toJSON()).toMatchObject({
         total: 8,

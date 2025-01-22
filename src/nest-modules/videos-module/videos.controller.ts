@@ -11,6 +11,8 @@ import {
   ValidationPipe,
   UseInterceptors,
   BadRequestException,
+  Delete,
+  Query,
 } from '@nestjs/common';
 import { CreateVideoUseCase } from '../../core/video/application/use-cases/create-video/create-video.use-case';
 import { UpdateVideoUseCase } from '../../core/video/application/use-cases/update-video/update-video.use-case';
@@ -21,6 +23,19 @@ import { UpdateVideoDto } from './dto/update-video.dto';
 import { UpdateVideoInput } from '../../core/video/application/use-cases/update-video/update-video.input';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { UploadAudioVideoMediaInput } from '../../core/video/application/use-cases/upload-audio-video-medias/upload-audio-video-media.input';
+import { DeleteVideoUseCase } from '@core/video/application/use-cases/delete-video/delete-video.use-case';
+import { SearchVideosUseCase } from '@core/video/application/use-cases/list-video/list-video.usecase';
+
+export type SearchVideoInput = {
+  page?: number;
+  per_page?: number;
+  sort?: string;
+  sort_dir?: string;
+  title?: string;
+  categories_id?: string[];
+  genres_id?: string[];
+  cast_members_id?: string[];
+};
 
 @Controller('videos')
 export class VideosController {
@@ -35,6 +50,12 @@ export class VideosController {
 
   @Inject(GetVideoUseCase)
   private getUseCase: GetVideoUseCase;
+
+  @Inject(DeleteVideoUseCase)
+  private deleteUseCase: DeleteVideoUseCase;
+
+  @Inject(SearchVideosUseCase)
+  private searchUseCase: SearchVideosUseCase;
 
   @Post()
   async create(@Body() createVideoDto: CreateVideoDto) {
@@ -184,5 +205,29 @@ export class VideosController {
       //use case upload image media
     }
     return await this.getUseCase.execute({ id });
+  }
+
+  @Delete(':id')
+  async delete(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
+  ) {
+    //VideoPresenter
+    return await this.deleteUseCase.execute({ id });
+  }
+
+  @Get()
+  async search(@Query() searchParams: SearchVideoInput) {
+    return await this.searchUseCase.execute({
+      filter: {
+        cast_members_id: searchParams.cast_members_id,
+        categories_id: searchParams.categories_id,
+        genres_id: searchParams.genres_id,
+        title: searchParams.title,
+      },
+      page: searchParams.page,
+      per_page: searchParams.per_page,
+      sort: searchParams.sort,
+      sort_dir: searchParams.sort_dir,
+    });
   }
 }

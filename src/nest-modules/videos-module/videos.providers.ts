@@ -23,6 +23,8 @@ import { ProcessAudioVideoMediasUseCase } from '../../core/video/application/use
 import { PublishVideoMediaReplacedInQueueHandler } from '../../core/video/application/handlers/publish-video-media-replaced-in-queue.handler';
 import { CAST_MEMBERS_PROVIDERS } from '../cast-members-module/cast-member.providers';
 import { IMessageBroker } from '@core/shared/application/message-broker.interface';
+import { DeleteVideoUseCase } from '@core/video/application/use-cases/delete-video/delete-video.use-case';
+import { SearchVideosUseCase } from '@core/video/application/use-cases/list-video/list-video.usecase';
 
 export const REPOSITORIES = {
   VIDEO_REPOSITORY: {
@@ -99,6 +101,14 @@ export const USE_CASES = {
         .CAST_MEMBERS_IDS_EXISTS_IN_DATABASE_VALIDATOR.provide,
     ],
   },
+
+  SEARCH_VIDEO_USE_CASE: {
+    provide: SearchVideosUseCase,
+    useFactory: (videoRepo: IVideoRepository) => {
+      return new SearchVideosUseCase(videoRepo);
+    },
+    inject: [REPOSITORIES.VIDEO_REPOSITORY.provide],
+  },
   UPLOAD_AUDIO_VIDEO_MEDIA_USE_CASE: {
     provide: UploadAudioVideoMediasUseCase,
     useFactory: (
@@ -135,6 +145,13 @@ export const USE_CASES = {
       GENRES_PROVIDERS.REPOSITORIES.GENRE_REPOSITORY.provide,
       CAST_MEMBERS_PROVIDERS.REPOSITORIES.CAST_MEMBER_REPOSITORY.provide,
     ],
+  },
+  DELETE_VIDEO_USE_CASE: {
+    provide: DeleteVideoUseCase,
+    useFactory: (uow: IUnitOfWork, videoRepo: IVideoRepository) => {
+      return new DeleteVideoUseCase(uow, videoRepo);
+    },
+    inject: ['UnitOfWork', REPOSITORIES.VIDEO_REPOSITORY.provide],
   },
   PROCESS_AUDIO_VIDEO_MEDIA_USE_CASE: {
     provide: ProcessAudioVideoMediasUseCase,

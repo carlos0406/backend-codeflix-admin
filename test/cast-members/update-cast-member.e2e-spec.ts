@@ -28,7 +28,6 @@ describe('CastMembersController (e2e)', () => {
         },
       ];
       test.each(arrange)('when id is $id', async ({ id, expected }) => {
-        console.log(id);
         return request(nestApp.app.getHttpServer())
           .patch(`/cast-members/${id}`)
           .expect(expected.statusCode)

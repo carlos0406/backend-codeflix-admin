@@ -44,6 +44,11 @@ export class CategoryFakeBuilder<TBuild = any> {
     return this;
   }
 
+  withNames(names: string[]) {
+    this._name = (index: number) => names[index] || this.chance.word();
+    return this;
+  }
+
   withDescription(valueOrFactory: PropOrFactory<string | null>) {
     this._description = valueOrFactory;
     return this;

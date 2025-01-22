@@ -15,7 +15,7 @@ const token = jwt.sign(
     },
   },
   process.env.JWT_PRIVATE_KEY,
-  { expiresIn: '24h', algorithm: 'RS256' },
+  { expiresIn: '2000h', algorithm: 'RS256' },
 );
 
 console.log(token);

@@ -23,6 +23,11 @@ export class GenreFakeBuilder<TBuild = any> {
     return new GenreFakeBuilder<Genre>();
   }
 
+  withNames(names: string[]) {
+    this._name = (index: number) => names[index] || this.chance.word();
+    return this;
+  }
+
   static theGenres(countObjs: number) {
     return new GenreFakeBuilder<Genre[]>(countObjs);
   }

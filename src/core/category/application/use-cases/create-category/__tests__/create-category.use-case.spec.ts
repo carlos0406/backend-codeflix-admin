@@ -14,8 +14,6 @@ describe('CreateCategoryUseCase Unit Tests', () => {
     const spyInsert = jest.spyOn(repository, 'insert');
     let output = await useCase.execute({ name: 'test' });
     expect(spyInsert).toHaveBeenCalledTimes(1);
-    console.log(output);
-    console.log(repository.items[0]);
     expect(output).toStrictEqual({
       id: repository.items[0].category_id.id,
       name: 'test',
