@@ -30,6 +30,7 @@ describe('CastMembersController (e2e)', () => {
       test.each(arrange)('when id is $id', async ({ id, expected }) => {
         return request(nestApp.app.getHttpServer())
           .patch(`/cast-members/${id}`)
+          .authenticate(nestApp.app)
           .expect(expected.statusCode)
           .expect(expected);
       });
@@ -42,6 +43,7 @@ describe('CastMembersController (e2e)', () => {
       await castmemberRepo.insert(castMember);
       const response = await request(nestApp.app.getHttpServer())
         .patch(`/cast-members/${castMember.cast_member_id.id}`)
+        .authenticate(nestApp.app)
         .send({
           name: 'New Name',
           type: CastMemberType.ACTOR,

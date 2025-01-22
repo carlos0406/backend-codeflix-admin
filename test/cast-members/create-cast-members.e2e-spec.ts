@@ -18,6 +18,7 @@ describe('cast members e2e', () => {
       async () => {
         const response = await request(appHelper.app.getHttpServer())
           .post('/cast-members')
+          .authenticate(appHelper.app)
           .send({
             type: CastMemberType.DIRECTOR,
           });
@@ -34,6 +35,7 @@ describe('cast members e2e', () => {
     it('should error when create a cast member with invalid type', async () => {
       const response = await request(appHelper.app.getHttpServer())
         .post('/cast-members')
+        .authenticate(appHelper.app)
         .send({
           name: 'name',
           type: 3,
@@ -50,6 +52,7 @@ describe('cast members e2e', () => {
     it('should create a cast member actor', async () => {
       const response = await request(appHelper.app.getHttpServer())
         .post('/cast-members')
+        .authenticate(appHelper.app)
         .send({
           name: 'name',
           type: CastMemberType.ACTOR,
@@ -74,6 +77,7 @@ describe('cast members e2e', () => {
     it('should create a cast member director', async () => {
       const response = await request(appHelper.app.getHttpServer())
         .post('/cast-members')
+        .authenticate(appHelper.app)
         .send({
           name: 'name',
           type: CastMemberType.DIRECTOR,

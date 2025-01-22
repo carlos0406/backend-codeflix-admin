@@ -13,6 +13,7 @@ import {
   BadRequestException,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateVideoUseCase } from '../../core/video/application/use-cases/create-video/create-video.use-case';
 import { UpdateVideoUseCase } from '../../core/video/application/use-cases/update-video/update-video.use-case';
@@ -37,6 +38,10 @@ export type SearchVideoInput = {
   cast_members_id?: string[];
 };
 
+import { AuthGuard } from '../auth-module/auth.guard';
+import { CheckIsAdminGuard } from '../auth-module/check-is-admin.guard';
+
+@UseGuards(AuthGuard, CheckIsAdminGuard)
 @Controller('videos')
 export class VideosController {
   @Inject(CreateVideoUseCase)

@@ -22,7 +22,6 @@ export class Config {
 
   static googleCredentials() {
     Config.readEnv();
-    console.log(Config.env);
     return JSON.parse(Config.env.GOOGLE_CLOUD_CREDENTIALS);
   }
 

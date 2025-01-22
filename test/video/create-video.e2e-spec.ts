@@ -33,12 +33,14 @@ describe('Video Controller (e2e)', () => {
       );
       await request(app.app.getHttpServer())
         .post('/videos')
+        .authenticate(app.app)
         .send(payload)
         .expect(201);
     });
     it('should throw entity validation error', async () => {
       await request(app.app.getHttpServer())
         .post('/videos')
+        .authenticate(app.app)
         .send({ error: 'qualquer_valor' })
         .expect(422);
 
@@ -51,6 +53,7 @@ describe('Video Controller (e2e)', () => {
       payload.title = 'a'.repeat(300);
       await request(app.app.getHttpServer())
         .post('/videos')
+        .authenticate(app.app)
         .send(payload)
         .expect(422);
     });

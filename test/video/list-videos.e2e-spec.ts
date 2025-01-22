@@ -42,24 +42,24 @@ describe('Video Controller (e2e)', () => {
       }
 
       let params = new URLSearchParams({ per_page: '2', page: '1' });
-      let res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      let res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
 
       expect(res.body.data.items.length).toBe(2);
       expect(res.body.data.total).toBe(payloads.length);
 
       params = new URLSearchParams({ per_page: '2', page: '2' });
-      res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
       expect(res.body.data.items.length).toBe(2);
       expect(res.body.data.total).toBe(payloads.length);
 
       params = new URLSearchParams({ per_page: '4', page: '3' });
-      res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
       expect(res.body.data.items.length).toBe(2);
       expect(res.body.data.total).toBe(payloads.length);
     });
@@ -76,9 +76,9 @@ describe('Video Controller (e2e)', () => {
       const params = new URLSearchParams({
         'genres_id[]': genres[0].genre_id.id,
       });
-      const res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      const res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
       expect(res.body.data.items.length).toBe(1);
     });
 
@@ -96,9 +96,9 @@ describe('Video Controller (e2e)', () => {
         const params = new URLSearchParams({
           'cast_members_id[]': castMembers[0].cast_member_id.id,
         });
-        const res = await request(app.app.getHttpServer()).get(
-          `/videos?${params.toString()}`,
-        );
+        const res = await request(app.app.getHttpServer())
+          .get(`/videos?${params.toString()}`)
+          .authenticate(app.app);
         expect(res.body.data.items.length).toBe(8);
       } catch (e) {
         console.log(e);
@@ -119,9 +119,9 @@ describe('Video Controller (e2e)', () => {
       const params = new URLSearchParams({
         'categories_id[]': [categories[0].category_id.id],
       } as any);
-      const res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      const res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
       expect(res.body.data.items.length).toBe(8);
     });
 
@@ -138,9 +138,9 @@ describe('Video Controller (e2e)', () => {
       const params = new URLSearchParams({
         title: 'The Lord of the Rings',
       });
-      const res = await request(app.app.getHttpServer()).get(
-        `/videos?${params.toString()}`,
-      );
+      const res = await request(app.app.getHttpServer())
+        .get(`/videos?${params.toString()}`)
+        .authenticate(app.app);
       expect(res.body.data.items.length).toBe(1);
       expect(res.body.data.items[0].title).toBe('The Lord of the Rings');
     });

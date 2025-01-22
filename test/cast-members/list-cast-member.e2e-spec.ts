@@ -29,6 +29,7 @@ describe('CastMembersController (e2e)', () => {
           const queryParams = new URLSearchParams(send_data as any).toString();
           return request(nestApp.app.getHttpServer())
             .get(`/cast-members/?${queryParams}`)
+            .authenticate(nestApp.app)
             .expect(200)
             .expect({
               data: expected.entities.map((e) =>
@@ -62,6 +63,7 @@ describe('CastMembersController (e2e)', () => {
           const queryParams = qs.stringify(send_data as any);
           return request(nestApp.app.getHttpServer())
             .get(`/cast-members/?${queryParams}`)
+            .authenticate(nestApp.app)
             .expect(200)
             .expect({
               data: expected.entities.map((e) =>

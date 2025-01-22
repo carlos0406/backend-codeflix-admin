@@ -41,11 +41,13 @@ describe('Video Controller (e2e)', () => {
       );
       const resultPost = await request(app.app.getHttpServer())
         .post('/videos')
+        .authenticate(app.app)
         .send(payload);
 
       const id = resultPost.body.data.id;
       await request(app.app.getHttpServer())
         .delete(`/videos/${id}`)
+        .authenticate(app.app)
         .expect(200);
       const videoDb = await videoRepo.findById(new VideoId(id));
       expect(videoDb).toBe(null);
@@ -53,11 +55,13 @@ describe('Video Controller (e2e)', () => {
     it('should return 404 id  not found', async () => {
       await request(app.app.getHttpServer())
         .delete(`/videos/${v4()}`)
+        .authenticate(app.app)
         .expect(404);
     });
     it('should return 422 invalid uuid', async () => {
       await request(app.app.getHttpServer())
         .delete(`/videos/sdksdaksadfksd`)
+        .authenticate(app.app)
         .expect(422);
     });
   });

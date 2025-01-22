@@ -28,7 +28,7 @@ import {
 import { AuthGuard } from '../auth-module/auth.guard';
 import { CheckIsAdminGuard } from '../auth-module/check-is-admin.guard';
 
-// @UseGuards(AuthGuard, CheckIsAdminGuard)
+@UseGuards(AuthGuard, CheckIsAdminGuard)
 @Controller('categories')
 export class CategoriesController {
   @Inject(CreateCategoryUseCase)

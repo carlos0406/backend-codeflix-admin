@@ -34,17 +34,25 @@ describe('Video Controller (e2e)', () => {
       );
       const resultPost = await request(app.app.getHttpServer())
         .post('/videos')
+        .authenticate(app.app)
         .send(payload);
 
       const id = resultPost.body.data.id;
-      await request(app.app.getHttpServer()).get(`/videos/${id}`).expect(200);
+      await request(app.app.getHttpServer())
+        .get(`/videos/${id}`)
+        .authenticate(app.app)
+        .expect(200);
     });
     it('should return 404 id  not found', async () => {
-      await request(app.app.getHttpServer()).get(`/videos/${v4()}`).expect(404);
+      await request(app.app.getHttpServer())
+        .get(`/videos/${v4()}`)
+        .authenticate(app.app)
+        .expect(404);
     });
     it('should return 422 invalid uuid', async () => {
       await request(app.app.getHttpServer())
         .get(`/videos/sdksdaksadfksd`)
+        .authenticate(app.app)
         .expect(422);
     });
   });

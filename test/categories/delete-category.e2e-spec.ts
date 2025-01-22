@@ -31,8 +31,8 @@ describe('CategoriesController (e2e)', () => {
       test.each(arrange)('when id is $id', async ({ id, expected }) => {
         return request(appHelper.app.getHttpServer())
           .delete(`/categories/${id}`)
-          .expect(expected.statusCode)
           .authenticate(appHelper.app)
+          .expect(expected.statusCode)
           .expect(expected);
       });
     });
