@@ -8,13 +8,24 @@ Content-Type: application/json
 Authorization: Bearer {{jwtToken}}
 
 {
-    "name": "Category 1",
+    "name": "Category teste kafka 1 2official",
     "description": "Description 1"
 }
 
 ###
 
 @categoryId = {{createCategory.response.body.data.id}}
+
+
+###
+PATCH http://localhost:3000/categories/{{categoryId}}
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
+
+{
+    "name": "Category renomeada",
+    "description": "Description renomeada"
+}
 
 ###
 GET http://localhost:3000/categories

@@ -4,7 +4,6 @@ services:
   
   app:
     build: .
-    command: ./.docker/start.sh
     ports:
       - 3000:3000
     volumes:

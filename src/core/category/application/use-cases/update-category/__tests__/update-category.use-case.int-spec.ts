@@ -1,10 +1,10 @@
-import { NotFoundError } from "../../../../../shared/domain/errors/not-found-erros";
+import { NotFoundError } from '../../../../../shared/domain/errors/not-found-erros';
 import { Uuid } from '../../../../../shared/domain/value-objects/uuid.vo';
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
 import { Category } from '../../../../domain/category.aggregate';
 import { CategorySequelizeRepository } from '../../../../infra/db/sequelize/category-sequelize.repository';
 import { CategoryModel } from '../../../../infra/db/sequelize/category.model';
-import { UpdateCategoryUseCase } from "../update-category.use-case";
+import { UpdateCategoryUseCase } from '../update-category.use-case';
 
 describe('UpdateCategoryUseCase Integration Tests', () => {
   let useCase: UpdateCategoryUseCase;
